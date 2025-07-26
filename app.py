@@ -118,7 +118,13 @@ option = st.sidebar.selectbox("Choose Mode", [
 
 if option.startswith("1"):
     st.header("📷 Upload Image to Generate Color Palette")
-    image_file = st.file_uploader("Upload Image or Capture", type=['jpg', 'png', 'jpeg'])
+    upload_option = st.radio("Choose input method:", ["Upload Image", "Use Camera"])
+
+    if upload_option == "Upload Image":
+        image_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+    elif upload_option == "Use Camera":
+        image_file = st.camera_input("Capture Image")
+
     if image_file is not None:
         img_bgr = load_image(image_file)
         face = detect_face(img_bgr)
